@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ECG Analyzer</h1>
+            <p class="subtitle">ECG-Based Classification and Investigation of Decision Thresholds (Team 03)</p>
+        </header>
+
+        <main>
+            <section class="card upload-section">
+                <h2>1. Upload ECG Signal</h2>
+                <p>Upload a JSON file containing the ECG array data (e.g., shape: [timesteps, 12]).</p>
+                <input type="file" id="ecgFileInput" accept=".json">
+                
+                <div id="previewContainer" class="hidden">
+                    <h3>ECG Signal Preview (Lead I, first 500ms)</h3>
+                    <canvas id="ecgChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card threshold-section">
+                <h2>2. Set Decision Threshold</h2>
+                <p>Adjust the threshold for classifying an ECG as abnormal.</p>
+                
+                <div class="slider-container">
+                    <input type="range" id="thresholdSlider" min="0.10" max="0.90" step="0.01" value="0.50">
+                    <span id="thresholdValue" class="slider-value">0.50</span>
+                </div>
+            </section>
+
+            <button id="analyzeBtn" class="primary-btn" disabled>ANALYZE ECG</button>
+
+            <section id="resultsSection" class="card results-section hidden">
+                <h2>Analysis Results</h2>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="result-label">Probability</span>
+                        <span id="resultProb" class="result-value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Threshold</span>
+                        <span id="resultThreshold" class="result-value">-</span>
+                    </div>
+                    <div class="result-item full-width">
+                        <span class="result-label">Classification</span>
+                        <span id="resultClass" class="result-value result-badge">-</span>
+                    </div>
+                </div>
+            </section>
+
+            <div id="errorContainer" class="error-message hidden"></div>
+        </main>
+
+        <footer>
+            <p class="disclaimer">
+                <strong>Disclaimer:</strong> This application is an academic machine-learning demonstration and is not a medical diagnostic tool.
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
